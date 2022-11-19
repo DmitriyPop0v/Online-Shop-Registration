@@ -74,6 +74,7 @@ if (isset($_POST["f_name"])) {
                 <b>Password is not same</b>
             </div>
         ";
+            exit();
         }
         if (!preg_match($number, $mobile)) {
             echo "
@@ -124,7 +125,27 @@ if (isset($_POST["f_name"])) {
                 echo "<script> location.href='store.php'; </script>";
                 exit;
             }*/
-        }
+            $url = 'https://localhost:7290';
+
+            $headers = ['Content-Type: application/json']; // заголовки нашего запроса
+            
+            $post_data = [ // поля нашего запроса
+                'userName' => $f_name,
+                'password' => $password,
+                "email" => $email,
+                "login" => $l_name,
+                "mobile" => $moile,
+            ];
+            
+            $data_json = json_encode($post_data); // переводим поля в формат JSON
+            
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_VERBOSE, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_POST, true);
     }
     
 }

@@ -85,6 +85,24 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         echo "<span style='color:red;'>Please register before login..!</span>";
         exit();
         }*/
+        $url = 'https://localhost:7290/user/login';
+
+        $headers = ['Content-Type: application/json']; // заголовки нашего запроса
+        
+        $post_data = [ // поля нашего запроса
+            'password' => $password,
+            'email' => $email,
+        ];
+        
+        $data_json = json_encode($post_data); // переводим поля в формат JSON
+        
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_VERBOSE, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
         
         
     }
